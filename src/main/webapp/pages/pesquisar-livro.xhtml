@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="head">
+		<h:head>
+			<meta charset="utf-8" name="viewport"
+				content="width=device-width, initial-scale=1"
+				http-equiv="X-UA-Conpatible" />
+			<link rel="stylesheet"
+				href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+				integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+				crossorigin="anonymous" />
+			<h:outputStylesheet library="css" name="pesquisar-livro.css" />
+			<h:outputStylesheet library="css" name="font.css" />
+		</h:head>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form>
+			<div class="container-fluid h-custom" style="margin-top: 50px;">
+				<div
+					class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+						<h1 style="margin-top: 30px; font-weight: bold;">GERENCIAR LIVROS</h1>
+
+						<h:panelGrid columns="2">
+
+							<h:outputLabel value="Filtrar por: " />
+							<h:selectOneMenu styleClass="custom-select mb-2"
+								value="#{pesquisarLivroController.tipoFiltro}">
+								<f:selectItem itemValue="1" itemLabel="Nome" />
+								<f:selectItem itemValue="2" itemLabel="Autor" />
+							</h:selectOneMenu>
+
+							<h:inputText value="#{pesquisarLivroController.filtro}" />
+							<h:commandButton styleClass="btn btn-primary btn-sm col-xs-3"
+								value="Pesquisar">
+								<f:ajax listener="#{pesquisarLivroController.pesquisar}"
+									execute="@form" render="@form" />
+							</h:commandButton>
+
+							<h:messages
+								styleClass="alert alert-danger alert-dismissible pr-0"
+								style="text-align: center; list-style:none; margin-top: 20px;"
+								id="messages" errorStyle="color:red;margin:8px;"
+								warnStyle="color:yellow;margin:8px; "
+								infoStyle="color:green;margin:8px;">
+							</h:messages>
+
+						</h:panelGrid>
+					</div>
+				</div>
+				<h:dataTable
+					styleClass="table table-striped table-bordered table-sm w-75 text-center p-3 mt-5"
+					rendered="#{!empty pesquisarLivroController.listaLivro}"
+					value="#{pesquisarLivroController.listaLivro}" var="obj">
+					<h:column>
+						<f:facet name="header">Nome</f:facet>
+						<h:outputLabel value="#{obj.nome}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Data de Lançamento</f:facet>
+						<h:outputLabel value="#{obj.lancamento}">
+							<f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+						</h:outputLabel>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Editora</f:facet>
+						<h:outputLabel value="#{obj.editora}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Estoque</f:facet>
+						<h:outputLabel value="#{obj.estoque}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Valor</f:facet>
+						<h:outputLabel value="#{obj.valor}">
+							<f:convertNumber locale="pt_BR" currencySymbol="R$"
+								type="currency" />
+						</h:outputLabel>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Idioma</f:facet>
+						<h:outputLabel value="#{obj.idioma.label}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Autor</f:facet>
+						<h:outputLabel value="#{obj.autor.nome}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Ação</f:facet>
+
+						<h:panelGrid columns="2">
+							<h:commandButton styleClass="btn btn-primary btn-sm"
+								value="Editar"
+								action="#{pesquisarLivroController.editar(obj.id)}">
+							</h:commandButton>
+						</h:panelGrid>
+					</h:column>
+				</h:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

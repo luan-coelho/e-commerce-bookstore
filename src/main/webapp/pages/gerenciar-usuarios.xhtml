@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<div class="container mx-auto" >
+				<h1 style="margin-top: 30px; font-weight: bold;">USUÁRIOS CADASTRADOS</h1>
+				<h:dataTable id="dataTable"
+					styleClass="table table-striped table-bordered table-sm w-100 text-center p-3 mt-5"
+					value="#{usuarioController.listaUsuario}" var="obj">
+					<h:column>
+						<f:facet name="header">Id</f:facet>
+						<h:outputLabel value="#{obj.id}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Nome</f:facet>
+						<h:outputLabel value="#{obj.nome}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">CPF</f:facet>
+						<h:outputLabel value="#{obj.cpf}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Data de Nascimento</f:facet>
+						<h:outputLabel value="#{obj.dataNascimento}">
+							<f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+						</h:outputLabel>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Perfil</f:facet>
+						<h:outputLabel value="#{obj.perfil.label}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Sexo</f:facet>
+						<h:outputLabel value="#{obj.sexo.label}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Email</f:facet>
+						<h:outputLabel value="#{obj.email}" />
+					</h:column>
+
+					<h:column>
+						<h:panelGrid columns="2">
+							<h:commandButton styleClass="btn btn-dark" value="Editar"
+							 actionListener="#{usuarioController.editar(obj.id)}">
+							</h:commandButton>
+						</h:panelGrid>
+					</h:column>
+				</h:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

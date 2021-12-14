@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<ui:insert name="head">
+	<h:head>
+		<meta charset="utf-8" name="viewport"
+			content="width=device-width, initial-scale=1"
+			http-equiv="X-UA-Conpatible" />
+		<meta charset="utf-8" name="viewport"
+			content="width=device-width, initial-scale=1"
+			http-equiv="X-UA-Conpatible" />
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+			integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+			crossorigin="anonymous" />
+		<h:outputStylesheet library="css" name="template.css" />
+		<h:outputStylesheet library="css" name="font.css" />
+	</h:head>
+</ui:insert>
+<h:body>
+	<h:form>
+		<nav class="navbar navbar-expand-lg navbar-dark"
+			style="background-color: #007bff">
+			<p style="margin: 0px 20px 0px 0px; font-weight: bold;" class="navbar-brand">Book
+				Store</p>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><h:commandLink value="Livros"
+							style="color: #FFF; text-decoration:none;">
+							<f:ajax listener="#{templateController.telaVenda}"
+								execute="@this" render="@form" />
+						</h:commandLink></li>
+				</ul>
+				<div class="input-group">
+					<h:inputText value="#{templateController.filtro}"
+						styleClass="form-control rounded col-xs-3 ml-2 mr-1" id="filtro"
+						a:placeholder="Livros e Autores" />
+					<h:commandButton value="Pesquisar" styleClass="btn btn-dark mr-3">
+						<f:ajax listener="#{templateController.pesquisar}"
+							execute="@form:filtro @this" />
+					</h:commandButton>
+				</div>
+
+				<h:panelGroup
+					rendered="#{templateController.usuarioLogado.perfil.id == 1}">
+					<div class="collapse navbar-collapse" id="basicExampleNav7">
+						<ul class="navbar-nav nav-flex-icons ml-auto">
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> <img
+									src="https://icon-library.com/images/icon-admin/icon-admin-0.jpg"
+									class="rounded-circle" style="height: 34px;"
+									alt="cart-image-icon" />
+							</a>
+								<div class="dropdown-menu dropdown-menu-lg-right"
+									aria-labelledby="navbarDropdownMenuLink-55">
+									<h:commandLink value="Gerenciar Usuários"
+										style="color:black; margin-left: 15px;display: contents;">
+										<f:ajax listener="#{templateController.telaGerenciarUsuario}"
+											execute="@this" />
+									</h:commandLink>
+									<br />
+									<h:commandLink
+										style="color: #000; text-decoration:none;text-align: center; margin-left: 15px;"
+										value="Gerenciar Livros">
+										<f:ajax listener="#{templateController.telaGerenciarLivro}"
+											execute="@this" />
+									</h:commandLink>
+
+								</div></li>
+						</ul>
+					</div>
+				</h:panelGroup>
+
+				<h:commandLink>
+					<img
+						src="https://e7.pngegg.com/pngimages/533/632/png-clipart-computer-icons-shopping-cart-retail-add-to-cart-button-logo-shopping-centre-thumbnail.png"
+						class="rounded-circle" style="height: 34px;" alt="cart-image-icon" />
+					<f:ajax listener="#{templateController.telaCarrinho}"
+						execute="@this" />
+				</h:commandLink>
+				<div class="collapse navbar-collapse" id="basicExampleNav7">
+					<ul class="navbar-nav nav-flex-icons ml-auto">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<h:graphicImage title="Ícone do usuario" style="height: 34px;"
+									value="/resources/images/user-icon.png" />
+						</a>
+							<div class="dropdown-menu dropdown-menu-lg-right"
+								aria-labelledby="navbarDropdownMenuLink-55">
+								<h:commandLink value="Perfil"
+									style="color:black; margin-left: 15px; font-weight: bold;">
+									<f:ajax listener="#{templateController.telaPerfilUsuario}"
+										execute="@this" />
+								</h:commandLink>
+								<br />
+								<h:commandLink
+									style="color: #000; text-decoration:none;text-align: center; margin-left: 15px;"
+									value="Histórico">
+									<f:ajax listener="#{templateController.telaHistorico}"
+										execute="@this" />
+								</h:commandLink>
+								<br />
+								<h:commandLink value="Encerrar Sessão"
+									style="color:red; margin-left: 15px;">
+									<f:ajax listener="#{templateController.encerrarSessao}"
+										execute="@this" />
+								</h:commandLink>
+							</div></li>
+							<h:outputLabel style="color: white; text-align: center; margin-bottom: 0px;" value="Olá, #{templateController.primeiroNome}"/>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div align="center">
+			<ui:insert name="conteudo">
+
+			</ui:insert>
+		</div>
+	</h:form>
+	<footer class="bg-light text-center text-lg-start mt-5 fixed-bottom">
+		<!-- Copyright -->
+		<div class="text-center p-2"
+			style="color: #FFF; background-color: #007bff;">© 2021
+			Copyright BookStore</div>
+	</footer>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+		crossorigin="anonymous"></script>
+</h:body>
+</html>

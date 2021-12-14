@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="/template2.xhtml">
+
+<ui:define name="conteudo">
+
+	<h:form >
+		<h:messages 
+			id="messages" 
+			errorStyle="color:red;margin:8px;"
+			warnStyle="color:yellow;margin:8px;"
+			infoStyle="color:green;margin:8px;"
+			/>
+		<h1>Cadastro de Usuário</h1>
+		<h:panelGrid id="panelPrincipal" columns="2">
+			<h:outputLabel value="Nome: " />
+			<h:inputText value="#{usuarioController.usuario.nome}">
+				
+			</h:inputText>
+			<h:outputLabel value="Cpf: " />
+			<h:inputText value="#{usuarioController.usuario.cpf}" 
+				>
+				<f:validateRegex pattern="([0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2})" />
+			</h:inputText>
+			
+			<h:outputLabel value="Data de Nascimento: " />
+			<input 
+				type="date"
+				placeholder="dd/MM/aaaa"
+				jsf:value="#{usuarioController.usuario.dataNascimento}" 
+				pattern="yyyy-MM-dd">
+				<f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
+			</input>
+			
+			
+			<h:outputLabel value="Perfil: " />
+			<h:selectOneMenu value="#{usuarioController.usuario.perfil}">
+				<f:selectItem 
+					itemLabel="Selecione um perfil ...." />
+				<f:selectItems 
+					var="obj"
+					value="#{usuarioController.listaPerfil}"
+					itemLabel="#{obj.label}"/>
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Sexo: " />
+			<h:selectOneRadio value="#{usuarioController.usuario.sexo}" >
+				<f:selectItems 
+					var="obj"
+					value="#{usuarioController.listaSexo}"
+					itemLabel="#{obj.label}"/>
+			</h:selectOneRadio>
+				
+			<h:outputLabel value="Email: " />
+			<h:inputText value="#{usuarioController.usuario.email}" />
+			
+			<h:outputLabel value="Senha: " />
+			<h:inputSecret value="#{usuarioController.usuario.senha}"/>
+
+
+		</h:panelGrid>
+		<h:panelGrid id="panelBotoes" columns="4">
+			<h:commandButton actionListener="#{usuarioController.incluir}"
+				value="Incluir" disabled="#{usuarioController.usuario.id != null}">
+				<f:ajax execute="panelPrincipal" render="@form" />
+			</h:commandButton>
+			<h:commandButton actionListener="#{usuarioController.alterar}"
+				value="Alterar" disabled="#{usuarioController.usuario.id == null}" />
+			<h:commandButton actionListener="#{usuarioController.excluir}"
+				value="Excluir" disabled="#{usuarioController.usuario.id == null}" />
+			<h:commandButton actionListener="#{usuarioController.limpar}"
+				value="Limpar">
+				<f:ajax execute="@this" render="panelPrincipal panelBotoes" />
+			</h:commandButton>
+		</h:panelGrid>
+
+		<h:panelGrid id="panelDataTable">
+			<h:dataTable id="dataTable" value="#{usuarioController.listaUsuario}" var="obj">
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+					<h:outputLabel value="#{obj.id}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputLabel value="#{obj.nome}" />
+				</h:column>
+	
+				<h:column>
+					<f:facet name="header">CPF</f:facet>
+					<h:outputLabel value="#{obj.cpf}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Data de Nascimento</f:facet>
+					<h:outputLabel value="#{obj.dataNascimento}" >
+						<f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+					</h:outputLabel>
+				</h:column>
+				
+					<h:column>
+					<f:facet name="header">Perfil</f:facet>
+					<h:outputLabel value="#{obj.perfil.label}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Sexo</f:facet>
+					<h:outputLabel value="#{obj.sexo.label}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+					<h:outputLabel value="#{obj.email}" />
+				</h:column>
+	
+				<h:column>
+					<f:facet name="header">Senha</f:facet>
+					<h:outputLabel value="******" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Ação</f:facet>
+					<h:panelGrid columns="2">
+						<h:commandButton value="Editar"
+							actionListener="#{usuarioController.editar(obj)}" >
+							<f:ajax execute="@this" render="@form:panelPrincipal @form:panelBotoes" />
+						</h:commandButton>
+						<h:commandButton value="Excluir"
+							actionListener="#{usuarioController.excluir(obj)}">
+							<f:ajax execute="@this" render="@form:panelDataTable @form:messages" />
+						</h:commandButton>
+					</h:panelGrid>
+	
+				</h:column>
+	
+			</h:dataTable>
+		</h:panelGrid>
+	</h:form>
+</ui:define>
+</ui:composition>
+
+</html>

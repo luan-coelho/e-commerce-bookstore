@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- resources/css/style.css -->
+<h:head>
+	<title>Cadastro</title>
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+		integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+		crossorigin="anonymous" />
+	<h:outputStylesheet library="css" name="cadastro.css" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<section class="vh-100">
+			<div class="container-fluid h-custom" style="margin-top: 50px;">
+				<div
+					class="row d-flex justify-content-center align-items-center h-100">
+
+					<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+						<div class="mt-5">
+							<h1 class="text-center fw-bold mx-3" style="font-weight: bold;">CADASTRO</h1>
+						</div>
+
+						<div class="form-outline mb-4">
+							<label class="form-label" for="nome">Nome</label>
+							<h:inputText value="#{cadastroController.usuario.nome}" id="nome"
+								styleClass="form-control form-control-lg"
+								a:placeholder="Informe seu nome" a:autofocus="true">
+							</h:inputText>
+						</div>
+
+						<div class="form-outline mb-4">
+							<label class="form-label" for="email">Email</label>
+							<h:inputText value="#{cadastroController.usuario.email}"
+								id="email" styleClass="form-control form-control-lg"
+								a:placeholder="Informe seu email">
+								<f:ajax listener="#{cadastroController.emailJaExiste}"
+									execute="@this" render="@form:messages" />
+							</h:inputText>
+						</div>
+
+						<div class="form-outline mb-4">
+							<label class="form-label" for="cpf">CPF</label>
+							<h:inputText maxlength="11"
+								value="#{cadastroController.usuario.cpf}" id="cpf"
+								styleClass="form-control form-control-lg"
+								a:placeholder="xxxxxxxxxxx" a:autofocus="true">
+								<f:ajax event="blur"
+									listener="#{cadastroController.cpfJaExiste}" execute="@this"
+									render="@form:messages" />
+							</h:inputText>
+						</div>
+
+						<div class="form-outline mb-4">
+							<label class="form-label" for="nasc">Data de Nascimento</label> <input
+								jsf:id="nasc" type="date" class="form-control form-control-lg"
+								placeholder="Informe sua data de nascimento"
+								jsf:value="#{cadastroController.usuario.dataNascimento}"
+								autofocus="autofocus">
+							<f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+							</input>
+						</div>
+
+						<label class="form-label">Telefone</label>
+						<div class="form-outline mb-4 row">
+							<div class="col">
+								<h:inputText maxlength="2"
+									value="#{cadastroController.usuario.telefone.codigoArea}"
+									id="ddd" styleClass="form-control form-control-lg"
+									a:placeholder="DDD" />
+							</div>
+							<div class="col">
+								<h:inputText maxlength="9"
+									value="#{cadastroController.usuario.telefone.numero}"
+									id="number" styleClass="form-control form-control-lg"
+									a:placeholder="Número" />
+							</div>
+						</div>
+
+						<div class="form-outline mb-4">
+							<label class="form-label" for="sexo">Sexo</label>
+							<h:selectOneRadio styleClass="mx-auto"
+								value="#{cadastroController.usuario.sexo}">
+								<f:selectItems var="obj" value="#{cadastroController.listaSexo}"
+									itemLabel="#{obj.label}" />
+							</h:selectOneRadio>
+						</div>
+
+						<div class="form-outline mb-3">
+							<label class="form-label" for="pasw">Senha</label>
+							<h:inputSecret value="#{cadastroController.usuario.senha}"
+								id="pasw" styleClass="form-control form-control-lg"
+								a:placeholder="Informe sua senha" />
+
+
+						</div>
+						<div class="form-outline mb-3">
+							<label class="form-label" for="confirm-pasw">Senha</label>
+							<h:inputSecret value="#{cadastroController.senhaAuxiliar}"
+								id="confirm-pasw" styleClass="form-control form-control-lg"
+								a:placeholder="Confirmar senha">
+
+								<f:ajax listener="#{cadastroController.verificarSenhaCadastro}"
+									execute="@this @form:pasw" render="@form:messages" />
+							</h:inputSecret>
+						</div>
+						<h:messages styleClass="alert alert-danger alert-dismissible"
+							style="text-align: center; list-style:none;" id="messages"
+							errorStyle="color:red;margin:8px;"
+							warnStyle="color:yellow;margin:8px;"
+							infoStyle="color:green;margin:8px;">
+						</h:messages>
+
+						<div class="text-center text-lg-start mt-4 pt-2">
+							<h:commandButton value="CADASTRAR"
+								style="padding-left: 2.5rem; padding-right: 2.5rem;"
+								styleClass="btn btn-primary btn-lg">
+								<f:ajax listener="#{cadastroController.cadastrar}"
+									execute="@form" render="@form:messages" />
+							</h:commandButton>
+							<p class="small fw-bold mt-2 pt-1"
+								style="font-size: 1em; margin-bottom: 60px;">
+								Já possui uma conta? <a class="link-danger"> <h:link
+										style="font-size: 1.2em;"
+										styleClass="small fw-bold mt-2 pt-1 mb-0" value="login"
+										outcome="login" />
+								</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</h:form>
+	<footer class="bg-light text-center text-lg-start fixed-bottom">
+		<!-- Copyright -->
+		<div class="text-center p-2"
+			style="color: #FFF; background-color: #007bff;">© 2021
+			Copyright BookStore</div>
+	</footer>
+</h:body>
+</html>

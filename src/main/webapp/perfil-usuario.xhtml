@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="template.xhtml">
+	<ui:define name="head">
+		<h:head>
+			<title>Perfil</title>
+			<meta charset="utf-8" name="viewport"
+				content="width=device-width, initial-scale=1"
+				http-equiv="X-UA-Conpatible" />
+			<link rel="stylesheet"
+				href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+				integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+				crossorigin="anonymous" />
+			<h:outputStylesheet library="webjars"
+				name="font-awesome/4.7.0/css/font-awesome.min-jsf.css" />
+			<h:outputStylesheet library="css" name="font.css" />
+		</h:head>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form>
+			<section class="vh-100">
+				<div class="container-fluid h-custom">
+					<div
+						class="row d-flex justify-content-center align-items-center h-100">
+
+						<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+							<div class="mt-5">
+								<h1 class="text-center fw-bold mx-3" style="font-weight: bold;">INFORMAÇÕES
+									PESSOAIS</h1>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="nome">Nome</label>
+								<h:inputText value="#{perfilUsuarioController.usuario.nome}"
+									id="nome" styleClass="form-control form-control-lg"
+									a:placeholder="Informe seu nome" a:autofocus="true">
+								</h:inputText>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="email">Email</label>
+								<h:inputText value="#{perfilUsuarioController.usuario.email}"
+									id="email" styleClass="form-control form-control-lg"
+									a:placeholder="Informe seu email"
+									disabled="true">
+									<f:ajax listener="#{perfilUsuarioController.emailJaExiste}"
+										execute="@this" render="@form:messages" />
+								</h:inputText>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="cpf">CPF</label>
+								<h:inputText disabled="true" maxlength="11"
+									value="#{perfilUsuarioController.usuario.cpf}" id="cpf"
+									styleClass="form-control form-control-lg"
+									a:placeholder="xxxxxxxxxxx" a:autofocus="true">
+									<f:ajax event="blur"
+										listener="#{perfilUsuarioController.cpfJaExiste}"
+										execute="@this" render="@form:messages" />
+								</h:inputText>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="nasc">Data de Nascimento</label>
+								<input jsf:id="nasc" type="date"
+									class="form-control form-control-lg"
+									placeholder="Informe sua data de nascimento"
+									jsf:value="#{perfilUsuarioController.usuario.dataNascimento}"
+									autofocus="autofocus">
+								<f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+								</input>
+							</div>
+
+							<label class="form-label">Telefone</label>
+							<div class="form-outline mb-4 row">
+								<div class="col">
+									<h:inputText maxlength="2"
+										value="#{perfilUsuarioController.usuario.telefone.codigoArea}"
+										id="ddd" styleClass="form-control form-control-lg"
+										a:placeholder="DDD" />
+								</div>
+								<div class="col">
+									<h:inputText maxlength="9"
+										value="#{perfilUsuarioController.usuario.telefone.numero}"
+										id="number" styleClass="form-control form-control-lg"
+										a:placeholder="Número" />
+								</div>
+							</div>
+
+							<div class="form-outline mb-3">
+								<label class="form-label" for="pasw">Senha</label>
+								<h:inputSecret value="#{perfilUsuarioController.usuario.senha}"
+									id="pasw" styleClass="form-control form-control-lg"
+									a:placeholder="Informe sua senha" />
+
+
+							</div>
+							<div class="form-outline mb-3">
+								<label class="form-label" for="confirm-pasw">Senha</label>
+								<h:inputSecret value="#{perfilUsuarioController.usuario.senha}"
+									id="confirm-pasw" styleClass="form-control form-control-lg"
+									a:placeholder="Confirmar senha">
+
+								</h:inputSecret>
+							</div>
+							<h:messages styleClass="alert alert-danger alert-dismissible"
+								style="text-align: center; list-style:none;" id="messages"
+								errorStyle="color:red;margin:8px;"
+								warnStyle="color:yellow;margin:8px;"
+								infoStyle="color:green;margin:8px;">
+							</h:messages>
+
+							<div class="text-center text-lg-start mt-4 pt-2 mb-5">
+								<h:commandButton value="ALTERAR"
+									style="padding-left: 2.5rem; padding-right: 2.5rem;"
+									styleClass="btn btn-success btn-lg d-grid mb-3">
+									<f:ajax
+										listener="#{perfilUsuarioController.alterarInformacoes}"
+										execute="@form" render="@form" />
+								</h:commandButton>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

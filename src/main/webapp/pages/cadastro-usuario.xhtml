@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<section class="vh-100">
+				<div class="container-fluid h-custom" style="margin-top: 50px;">
+					<div
+						class="row d-flex justify-content-center align-items-center h-100">
+
+						<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+							<div class="mt-5">
+								<h1 class="text-center fw-bold mx-3" style="font-weight: bold;">INFORMAÇÕES
+									DE USUÁRIO</h1>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="nome">Nome</label>
+								<h:inputText value="#{cadastroController.usuario.nome}"
+									id="nome" styleClass="form-control form-control-lg"
+									a:autofocus="true">
+								</h:inputText>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="email">Email</label>
+								<h:inputText value="#{cadastroController.usuario.email}"
+									id="email" styleClass="form-control form-control-lg" disabled="true">
+									<f:ajax listener="#{cadastroController.emailJaExiste}"
+										execute="@this" render="@form:messages" />
+								</h:inputText>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="cpf">CPF</label>
+								<h:inputText maxlength="11"
+									value="#{cadastroController.usuario.cpf}" id="cpf"
+									styleClass="form-control form-control-lg" a:autofocus="true">
+									<f:ajax event="blur"
+										listener="#{cadastroController.cpfJaExiste}" execute="@this"
+										render="@form:messages" />
+								</h:inputText>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="nasc">Data de Nascimento</label>
+								<input jsf:id="nasc" type="date"
+									class="form-control form-control-lg"
+									jsf:value="#{cadastroController.usuario.dataNascimento}"
+									autofocus="autofocus">
+								<f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+								</input>
+							</div>
+
+							<label class="form-label">Telefone</label>
+							<div class="form-outline mb-4 row">
+								<div class="col">
+									<h:inputText maxlength="2"
+										value="#{cadastroController.usuario.telefone.codigoArea}"
+										id="ddd" styleClass="form-control form-control-lg" />
+								</div>
+								<div class="col">
+									<h:inputText maxlength="9"
+										value="#{cadastroController.usuario.telefone.numero}"
+										id="number" styleClass="form-control form-control-lg" />
+								</div>
+							</div>
+
+							<div class="form-outline mb-4">
+								<label class="form-label" for="perfil">Perfil</label>
+								<h:selectOneRadio styleClass="mx-auto"
+									value="#{cadastroController.usuario.perfil}">
+									<f:selectItems var="obj"
+										value="#{cadastroController.listaPerfil}"
+										itemLabel="#{obj.label}" />
+								</h:selectOneRadio>
+							</div>
+							
+							<div class="form-outline mb-4">
+								<label class="form-label" for="sexo">Sexo</label>
+								<h:selectOneRadio styleClass="mx-auto"
+									value="#{cadastroController.usuario.sexo}">
+									<f:selectItems var="obj"
+										value="#{cadastroController.listaSexo}"
+										itemLabel="#{obj.label}" />
+								</h:selectOneRadio>
+							</div>
+
+							<div class="form-outline mb-3">
+								<label class="form-label" for="pasw">Senha</label>
+								<h:inputSecret id="pasw"
+									styleClass="form-control form-control-lg" disabled="true" />
+							</div>
+
+							<h:messages styleClass="alert alert-danger alert-dismissible"
+								style="text-align: center; list-style:none;" id="messages"
+								errorStyle="color:red;margin:8px;"
+								warnStyle="color:yellow;margin:8px;"
+								infoStyle="color:green;margin:8px;">
+							</h:messages>
+
+							<h:panelGrid styleClass="mb-5" id="panelBotoes" columns="4">
+								<h:commandButton actionListener="#{usuarioController.incluir}"
+									value="Incluir"
+									disabled="#{usuarioController.usuario.id == null}"
+									styleClass="btn btn-success btn-sm">
+									<f:ajax execute="panelPrincipal" render="@form" />
+								</h:commandButton>
+								<h:commandButton actionListener="#{usuarioController.alterar}"
+									value="Alterar"
+									disabled="#{usuarioController.usuario.id != null}"
+									styleClass="btn btn-primary btn-sm" />
+								<h:commandButton actionListener="#{usuarioController.excluir}"
+									value="Excluir"
+									disabled="#{usuarioController.usuario.id != null}" 
+									styleClass="btn btn-danger btn-sm"/>
+								<h:commandButton actionListener="#{usuarioController.limpar}"
+									value="Limpar" styleClass="btn btn-secondary btn-sm">
+									<f:ajax execute="@this" render="panelPrincipal panelBotoes" />
+								</h:commandButton>
+							</h:panelGrid>
+						</div>
+					</div>
+				</div>
+			</section>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
