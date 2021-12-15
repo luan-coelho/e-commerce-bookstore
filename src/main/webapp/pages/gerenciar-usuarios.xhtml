@@ -1,21 +1,16 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <ui:composition template="/template.xhtml">
 
 	<ui:define name="conteudo">
 
 		<h:form>
-			<div class="container mx-auto" >
+			<div class="container mx-auto">
 				<h1 style="margin-top: 30px; font-weight: bold;">USUÁRIOS CADASTRADOS</h1>
-				<h:dataTable id="dataTable"
-					styleClass="table table-striped table-bordered table-sm w-100 text-center p-3 mt-5"
+				<h:dataTable id="dataTable" styleClass="table table-striped table-bordered table-sm w-100 text-center p-3 mt-5"
 					value="#{usuarioController.listaUsuario}" var="obj">
 					<h:column>
 						<f:facet name="header">Id</f:facet>
@@ -57,7 +52,7 @@
 					<h:column>
 						<h:panelGrid columns="2">
 							<h:commandButton styleClass="btn btn-dark" value="Editar"
-							 actionListener="#{usuarioController.editar(obj.id)}">
+								actionListener="#{usuarioController.editar(obj.id)}">
 							</h:commandButton>
 						</h:panelGrid>
 					</h:column>
