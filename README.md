@@ -18,24 +18,24 @@ In your IDE open the project or import.
 
 Link the project to Tomcat and start it.
   
-#### BookStore E-commerce
-- [x] Autenticação
-- [x] Segurança (Hash, Filter)
+#### Project Structure
+- [x] Authentication
+- [x] Security (Hash, Filter)
 - [x] Filter
 	- [x] Filter
 - [x] CRUD
-- [x] Menus para diferentes usuários
-- [x] Tela de Perfil (Permite alterar os dados do usuario que está logado)
-- [x] Cadastro básico de cliente (que é um usuário)
-- [x] Conversores e Validadores
-	- [x] Conversores
-	- [x] Validadores 
-- [x] Implementar o que está faltando no sistema (Como por exemplo o total da venda)
-- [x] Todas as telas do e-commerce (Venda, Carrinho, Histórico e Detalhes)
-	- [x] Venda
-	- [x] Carrinho
-	- [x] Histórico
-	- [x] Detalhes Histórico
-- [x] MVC está correto
+- [x] Menus for different users
+- [x] Profile Screen (Allows you to change the data of the user who is logged in)
+- [x] Basic customer registration (which is a user)
+- [x] Converters and Validators
+	- [x] Converters
+	- [x] Validators
+- [x] Implement what is missing in the system (such as the sales total)
+- [x] All e-commerce screens (Sale, Cart, History and Details)
+	- [x] Sale
+	- [x] Cart
+	- [x] History
+	- [x] History Details
+- [x] MVC is correct
 - [x] Ajax
-- [x] Inteface 
+- [x] Interface
