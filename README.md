@@ -1,7 +1,5 @@
 # E-commerce de venda de livros.
 
-The entire structure of the project was created with JSF, a Java framework.
-
 Este projeto foi criado para fins acadêmicos e de aprendizagem. Disciplina de Tópicos em Programação I, 3º período de Sistemas de Informação.
 
 ## Como testar?
