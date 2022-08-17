@@ -1,41 +1,36 @@
-# E-commerce from a library.
+# E-commerce de venda de livros.
 
 The entire structure of the project was created with JSF, a Java framework.
 
-This project was created for academic and learning purposes.
+Este projeto foi criado para fins acadêmicos e de aprendizagem. Disciplina de Tópicos em Programação I, 3º período de Sistemas de Informação.
 
-## How to test it?
+## Como testar?
 
-### Some requirements:
+### Alguns requisitos
 
-You will need a web server to run the project. In this case Tomcat version 9.0.54 was used (you can also use another version 9.0.x). Tomcat versions higher than 9.0 have not been tested in this project.
+Você precisará de um servidor web para executar o projeto. Neste caso foi usado o Tomcat versão 9.0.54 (você também pode usar outra versão 9.0.x). Versões do Tomcat superiores a 9 não foram testadas neste projeto.
 
-Use JDK 11 to version 15 (higher versions don't go up)
+Use o JDK 11 até a versão 15 (versões superiores não foram testadas)
 
-### With the requirements ready:
+### Com os requisitos prontos
 
-In your IDE open the project or import.
-
-Link the project to Tomcat and start it.
+Em sua IDE, abra o projeto ou importe. Vincule o projeto ao Tomcat e inicie-o.
   
-#### Project Structure
-- [x] Authentication
-- [x] Security (Hash, Filter)
+#### Features criadas
+- [x] Autenticação
+- [x] Segurança (Hash, Filter)
 - [x] Filter
-	- [x] Filter
 - [x] CRUD
-- [x] Menus for different users
-- [x] Profile Screen (Allows you to change the data of the user who is logged in)
-- [x] Basic customer registration (which is a user)
-- [x] Converters and Validators
-	- [x] Converters
-	- [x] Validators
-- [x] Implement what is missing in the system (such as the sales total)
-- [x] All e-commerce screens (Sale, Cart, History and Details)
-	- [x] Sale
-	- [x] Cart
-	- [x] History
-	- [x] History Details
-- [x] MVC is correct
+- [x] Menus para diferentes usuários
+- [x] Tela de Perfil (Permite alterar os dados do usuário que está logado)
+- [x] Cadastro básico de cliente (que é um usuário)
+- [x] Conversores e validadores
+- [x] Implementar o que está faltando no sistema (como o total de vendas)
+- [x] Todas as telas do e-commerce:
+	- [x] Venda
+	- [x] Carrinho
+	- [x] Histórico
+	- [x] Destalhes de Histórico
+- [x] MVC está correto
 - [x] Ajax
 - [x] Interface
